@@ -34,7 +34,7 @@ compute_md <- function(df, return_pvalues = FALSE) {
     md <- stats::mahalanobis(df, colMeans(df), cov(df))
 
     if (return_pvalues) {
-      return(list(md = md, p_values = pchisq(md, df = ncol(df), lower.tail = FALSE)))
+      return(list(md = md, p_values = stats::pchisq(md, df = ncol(df), lower.tail = FALSE)))
     } else {
       return(md)
     }
