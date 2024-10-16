@@ -13,6 +13,8 @@
 #' \emph{Psychological Methods, 17(3)}, 437-455. \doi{10.1037/a0028085}
 #' @importFrom stats mahalanobis
 #' @importFrom stats cov
+#' @importFrom stats var
+#' @importFrom stats pchisq
 #'
 #' @examples
 #' md <- compute_md(df, return_pvalues = FALSE)
@@ -27,7 +29,7 @@ compute_md <- function(df, return_pvalues = FALSE) {
   df <- as.matrix(df)  # dummy proofing -- coerce to matrix for efficiency
 
   try({
-    zero_var_cols <- which(apply(df, 2, var) == 0)
+    zero_var_cols <- which(apply(df, 2, stats::var) == 0)
     if(length(zero_var_cols) > 0) df <- df[, -zero_var_cols]
     md <- stats::mahalanobis(df, colMeans(df), cov(df))
 
@@ -44,7 +46,7 @@ compute_md <- function(df, return_pvalues = FALSE) {
     md <- stats::mahalanobis(df, colMeans(df), cov_matrix)
 
     if (return_pvalues) {
-      return(list(md = md, p_values = pchisq(md, df = ncol(df), lower.tail = FALSE)))
+      return(list(md = md, p_values = stats::pchisq(md, df = ncol(df), lower.tail = FALSE)))
     } else {
       return(md)
     }

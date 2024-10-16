@@ -10,6 +10,8 @@ Encoding: UTF-8
 LazyData: false
 RoxygenNote: 7.3.2
 Language: en-CA
-Depends: R (>= 4.3.0)
+Depends: 
+    R (>= 4.3.0),
+    isotree (>= 0.6.1-1)
 Imports: 
   psych (>=	2.4.6)

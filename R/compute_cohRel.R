@@ -19,8 +19,9 @@
 #' Dupuis, M., Meier, E., Capel, R., & Gendre, F. (2015). Measuring individuals’ response quality
 #' in self-administered psychological tests: An introduction to Gendre’s functional method.
 #' \emph{Frontiers in Psychology, 6}, 629. \doi{10.3389/FPSYG.2015.00629}
-#' @importFrom  psych principal
+#' @importFrom psych principal
 #' @importFrom stats cor
+#' @importFrom stats sd
 #'
 #' @examples
 #'
@@ -177,7 +178,7 @@ compute_cohRel <- function(df, scales_list, nb_factors) {
     z_scores <- scale(normed_scores)
     # Calculate the mean and standard deviation for each item
     item_means <- colMeans(scale_data, na.rm = TRUE) # get mean
-    item_sd <- apply(scale_data, 2, sd, na.rm = TRUE) # get sd
+    item_sd <- apply(scale_data, 2, stats::sd, na.rm = TRUE) # get sd
     # Metricize the response matrix
     metricized_response <- t(t(scale_data - item_means) / item_sd)
     # Calculate the response strategy
