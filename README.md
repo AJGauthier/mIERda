@@ -39,4 +39,7 @@ score <- mierda_score(df_ieri) #Generates a faircut forest using the IERIs and r
 
 ## mIERda SCORE CUTOFF
 cutoff <- mIERda_cutoff(score) #Finds the cutoff based on the distribution of mIERda scores. Returns a vector of lenght=1. Respondents with values smaller than or equal to the cutoff are deemed attentive whilst responded with values greater than the cutoff should be considered C/IER
+
+# Or you can use the remove_mIERda function to automatize the screening process
+df_screened <- remove_mIERda(df, scales_list, nb_factors)
 ```
