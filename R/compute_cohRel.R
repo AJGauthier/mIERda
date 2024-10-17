@@ -28,6 +28,14 @@
 #' @export compute_cohRel
 #'
 #' @examples
+#'  scales_list <- list(scale1 = dplyr::select (df, item_1:item_18),
+#'                 scale2 = dplyr::select (df, item_19:item_29),
+#'                 scale3 = dplyr::select (df, item_30:item_60))
+#'
+#'  nb_factors <- list(scale1 = 6,
+#'                     scale2 = 2,
+#'                     scale3 = 2)
+#'
 #' response_coh_rel <- response_cohRel(df, scales_list, nb_factors)
 
 compute_cohRel <- function(df, scales_list, nb_factors) {
