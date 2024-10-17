@@ -14,7 +14,7 @@ The mIERda_score function takes a dataframe or matrix containing participants IS
 response reliability and response coherence and generates a fair cut forest. A vector containing mIERda scores is returned.
 }
 \examples{
-mierdaScore <- mIERda_score(x)
+mierdaScore <- mIERda_score (x)
 
 
 }

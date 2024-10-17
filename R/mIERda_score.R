@@ -14,7 +14,7 @@
 #' }
 #' @export mIERda_score
 #' @importFrom isotree isolation.forest
-#' @importFrom isotree predict
+#' @importFrom isotree predict.isolation_forest
 #'
 #' @examples
 #' mierdaScore <- mIERda_score (x)

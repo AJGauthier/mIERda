@@ -24,7 +24,6 @@ and the correlation between two parallel halves  of the response strategy. The f
 which contains 2 sub-list of length number of scales.
 }
 \examples{
-
  scales_list <- list(scale1 = dplyr::select (df, item_1:item_18),
                 scale2 = dplyr::select (df, item_19:item_29),
                 scale3 = dplyr::select (df, item_30:item_60))
@@ -33,7 +32,7 @@ which contains 2 sub-list of length number of scales.
                     scale2 = 2,
                     scale3 = 2)
 
-response_coh_rel <- response_coh_reliability(df, scales_list, nb_factors)
+response_coh_rel <- response_cohRel(df, scales_list, nb_factors)
 }
 \references{
 Dupuis, M., Meier, E., Capel, R., & Gendre, F. (2015). Measuring individuals’ response quality

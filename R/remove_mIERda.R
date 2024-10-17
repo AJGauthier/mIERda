@@ -42,6 +42,7 @@
 #' @importFrom stats mahalanobis
 #' @importFrom stats cov
 #' @importFrom isotree isolation.forest
+#' @importFrom isotree predict.isolation_forest
 #'
 #' @examples
 #' df_screened <- remove_mIERda(df, scales_list, nb_factors)
