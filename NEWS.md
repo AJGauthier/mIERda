@@ -1,3 +1,5 @@
+# mIERda version 0.3
+-   Adds function export
 # mIERda version 0.2
 -   Introduction of the remove_mierda function
 # mIERda version 0.1
