@@ -6,7 +6,7 @@ The package is not yet available on CRAN (submission pending). To download the d
 
 ```{r}
 library(devtools)
-devtools::install_github("arianejgauthier/mierda")
+devtools::install_github("arianejgauthier/mIERda")
 ```
 
 ## Description
