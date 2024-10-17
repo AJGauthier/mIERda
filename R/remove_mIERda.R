@@ -36,7 +36,7 @@
 #' \emph{Frontiers in Psychology, 6}, 629. \doi{10.3389/FPSYG.2015.00629}
 #' }
 #'
-#' @export
+#' @export remove_mIERda
 #' @importFrom psych principal
 #' @importFrom stats cor
 #' @importFrom stats mahalanobis

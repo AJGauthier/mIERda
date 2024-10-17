@@ -14,6 +14,8 @@
 #' Marjanovic, Z., Holden, R., Struthers, W., Cribbie, R., & Greenglass, E. (2015).
 #' The inter-item standard deviation (ISD): An index that discriminates between conscientious and random responders.
 #' \emph{Personality and Individual Differences}, 84, 79-83. \doi{10.1016/j.paid.2014.08.021}
+#'
+#' @export compute_isd
 #' @importFrom stats sd
 #' @examples
 #' isd <- compute_isd(df, na.rm = TRUE)

@@ -12,7 +12,7 @@
 #' \item Cortes, David. "Revisiting randomized choices in isolation forests." arXiv preprint arXiv:2110.13402 (2021).
 #' \item Cortes, David. "Isolation forests: looking beyond tree depth." arXiv preprint arXiv:2111.11639 (2021).
 #' }
-#'
+#' @export mIERda_score
 #' @importFrom isotree isolation.forest
 #' @importFrom isotree predict
 #'

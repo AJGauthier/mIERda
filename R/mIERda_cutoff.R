@@ -5,6 +5,7 @@
 #' @param x a vector containung respondents mierda_score
 #' @author Ariane J. Gauthier \email{arianejgauthier@outlook.com}
 #'
+#' @export mIERda_cutoff
 #' @examples
 #' cutoff <- mIERda_cutoff(mierdaScore)
 #'

@@ -9,11 +9,12 @@
 #' @references
 #' Johnson, J. A. (2005). Ascertaining the validity of individual protocols
 #' from web-based personality inventories. \emph{Journal of Research in Personality, 39}, 103-129. \doi{10.1016/j.jrp.2004.09.009}
-#' @export
-#' 
+#'
+#' @export compute_longstring
+#'
 #' @examples
 #' ls <- compute_longstring(df)
-#' 
+#'
 compute_longstring <- function(df) {
   if (!is.data.frame(df) && !is.matrix(df)) {
     stop("Input data must be a data frame or matrix")

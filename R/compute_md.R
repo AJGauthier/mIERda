@@ -7,10 +7,11 @@
 #'
 #' @param df is a dataframe or matrix containing respondents responses (e.g. survey responses)
 #' @author Ariane J. Gauthier \email{arianejgauthier@outlook.com}
-#' @export
 #' @references
 #' #' Meade, A. W., & Craig, S. B. (2012). Identifying careless responses in survey data.
 #' \emph{Psychological Methods, 17(3)}, 437-455. \doi{10.1037/a0028085}
+#'
+#' @export compute_md
 #' @importFrom stats mahalanobis
 #' @importFrom stats cov
 #' @importFrom stats var
