@@ -40,7 +40,7 @@ mIERda_score <- function(df_mierda) {
     nthreads = 1
   )
 
-  mierda_score <- isotree::predict(model_orig,
+  mierda_score <- isotree::predict.isolation_forest(model_orig,
                        df_t,
                        type="score")
 
