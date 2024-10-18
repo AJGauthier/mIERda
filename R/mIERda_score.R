@@ -14,7 +14,7 @@
 #' }
 #' @export mIERda_score
 #' @importFrom isotree isolation.forest
-#' @importFrom isotree predict.isolation_forest
+#' @importFrom stats predict
 #'
 #' @examples
 #' mierdaScore <- mIERda_score (x)
@@ -40,7 +40,7 @@ mIERda_score <- function(df_mierda) {
     nthreads = 1
   )
 
-  mierda_score <- isotree::predict.isolation_forest(model_orig,
+  mierda_score <- stats::predict(model_orig,
                        df_t,
                        type="score")
 
