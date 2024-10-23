@@ -35,7 +35,7 @@ isd <- compute_isd(df, na.rm = TRUE) #Compute IRV/ISD and returns vector for eac
 pcor <- compute_ptc(df) #Compute person-total correlation and returns correlation for each respondent
 
 ## mIERda SCORE
-score <- mierda_score(df_ieri) #Generates a faircut forest using the IERIs and returns a vector anomaly score for each participant
+score <- mIERda_score(df_ieri) #Generates a faircut forest using the IERIs and returns a vector anomaly score for each participant
 
 ## mIERda SCORE CUTOFF
 cutoff <- mIERda_cutoff(score) #Finds the cutoff based on the distribution of mIERda scores. Returns a vector of lenght=1. Respondents with values smaller than or equal to the cutoff are deemed attentive whilst responded with values greater than the cutoff should be considered C/IER
