@@ -5,7 +5,8 @@
 #' The response reliability and coherence is then obtained by running a series of PCA, computing
 #' the vector of response strategy and by computing the norm of the response strategy (response coherence)
 #' and the correlation between two parallel halves  of the response strategy. The function returns a list
-#' which contains 2 sub-list of length number of scales.
+#' which contains 2 sub-list of length number of scales. Depending on the number of latent factors in your scale, 
+#' it might take from a few seconds to a few minutes for the code to run.
 #'
 #' @param df a dataframe of data (e.g. survey responses); a matrix won't work
 #' @param scales_list a list of length number of scale indicating the name of the scales
