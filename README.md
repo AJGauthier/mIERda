@@ -12,8 +12,11 @@ devtools::install_github("AJGauthier/mIERda")
 ## Description
 The mIERda is a package developed by researchers, for researchers. Although the impact of C/IER is well known and established in the literature, screening data for C/IER might be a daunting fact for individuals outside the field of IER. As such, the mIERda was developed as a tool to facilitate the decision process inherent to IER screening, to simplify the interpretation of IER indicators, relieves researchers from the need to establish cut-offs for each IERI, and the subsequent classification process.
 
+Researchers can manually call each function to yield the mIERda score for each respondent or can call the remove_mIERda function to automatize the screening process.
+
 ## Functions
 ```{r}
+# MANUALLY CALLING THE FUNCTIONS
 ## LONGSTRING
 ls <- compute_longstring(df) #Compute longest string of consecutive responses
 
@@ -42,4 +45,8 @@ cutoff <- mIERda_cutoff(score) #Finds the cutoff based on the distribution of mI
 
 # Or you can use the remove_mIERda function to automatize the screening process
 df_screened <- remove_mIERda(df, scales_list, nb_factors)
+
+###########
+# USE ALL-IN-ONE FUNCTION
+df_screened <- remove_mIERda(df, scales_list, nb_factors) #Returns a copy of df containing IERIS, mIERda score, and mIERda classification (attentive vs IER)
 ```
