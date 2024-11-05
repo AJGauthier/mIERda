@@ -41,7 +41,7 @@ compute_md <- function(df, return_pvalues = FALSE) {
     }
   }, silent = TRUE)
 
-  lambda <- 1e-4 #specify a lambda to adress invertability issues
+  lambda <- 1e-4 #specify a lambda to address invertability issues
   try({
     cov_matrix <- stats::cov(df) + lambda * diag(ncol(df))
     md <- stats::mahalanobis(df, colMeans(df), cov_matrix)

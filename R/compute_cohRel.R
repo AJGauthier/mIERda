@@ -94,8 +94,12 @@ compute_cohRel <- function(df, scales_list, nb_factors) {
       part_2 <- scale_data[i, part_2_indices, drop = FALSE]
 
       # Compute correlations for part_1 and part_2
-      half_1 <- normalize_row2(stats::cor(normed_scores[pairs[, 1], ], t(part_1), use = "complete.obs"))
-      half_2 <- normalize_row2(stats::cor(normed_scores[pairs[, 2], ], t(part_2), use = "complete.obs"))
+      half_1 <- normalize_row2(stats::cor(normed_scores[pairs[, 1], ], t(part_1),
+                                          #use = "complete.obs"
+                                          ))
+      half_2 <- normalize_row2(stats::cor(normed_scores[pairs[, 2], ], t(part_2),
+                                          #use = "complete.obs"
+                                          ))
 
       reliability[i] <- sum(half_1 * half_2, na.rm = TRUE)
     }
