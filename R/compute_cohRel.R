@@ -5,7 +5,7 @@
 #' The response reliability and coherence is then obtained by running a series of PCA, computing
 #' the vector of response strategy and by computing the norm of the response strategy (response coherence)
 #' and the correlation between two parallel halves  of the response strategy. The function returns a list
-#' which contains 2 sub-list of length number of scales. Depending on the number of latent factors in your scale, 
+#' which contains 2 sub-list of length number of scales. Depending on the number of latent factors in your scale,
 #' it might take from a few seconds to a few minutes for the code to run.
 #'
 #' @param df a dataframe of data (e.g. survey responses); a matrix won't work
@@ -13,6 +13,10 @@
 #' included in the df and the items for each scale.
 #' @param nb_factors a list of length number of scales indicating the name of each scale
 #' and the number of latent factors for each scale included in the df
+#' @param max_iterations a numerical value indicating the maximal number of iterations
+#' allowed to obtain strict orthogonality and perfect communality, assuming
+#' the model does not converge before reaching said number of iterations. This allows you to
+#' control the potential computational load. Recommended value = 30
 #'
 #' @author Ariane J. Gauthier \email{arianejgauthier@outlook.com}
 #'
@@ -39,7 +43,9 @@
 #'
 #' response_coh_rel <- response_cohRel(df, scales_list, nb_factors)
 
-compute_cohRel <- function(df, scales_list, nb_factors) {
+compute_cohRel <- function(df, scales_list, nb_factors, max_iterations = 30) {
+
+  verbose = F
 
   if (!is.data.frame(df)) {
     stop("Input data must be a data frame")
@@ -97,16 +103,19 @@ compute_cohRel <- function(df, scales_list, nb_factors) {
       # Compute correlations for part_1 and part_2
       half_1 <- normalize_row2(stats::cor(normed_scores[pairs[, 1], ], t(part_1),
                                           #use = "complete.obs"
-                                          ))
+                                          #use = "pairwise"
+      ))
       half_2 <- normalize_row2(stats::cor(normed_scores[pairs[, 2], ], t(part_2),
                                           #use = "complete.obs"
-                                          ))
+                                          #use = "pairwise"
+      ))
 
       reliability[i] <- sum(half_1 * half_2, na.rm = TRUE)
     }
 
     # Apply Spearman-Brown correction
-    rreliability <- ifelse(((2 * abs(reliability)) / (1 + abs(reliability))) < -1, -1, ((2 * abs(reliability)) / (1 + abs(reliability))))
+    #rreliability <- ifelse(((2 * abs(reliability)) / (1 + abs(reliability))) < -1, -1, ((2 * abs(reliability)) / (1 + abs(reliability))))
+    rreliability <- ifelse(((2 * (reliability)) / (1 + (abs(reliability)))) < -1, -1, ((2 * (reliability)) / (1 + (abs(reliability)))))
 
     return(rreliability)
   }
@@ -115,7 +124,7 @@ compute_cohRel <- function(df, scales_list, nb_factors) {
   # SET PARAMETERS
   converged <- FALSE # Set convergence criteria
   scale_factors_list <- list() # Create an empty list to store the scales and number of factors
-  num_iterations <- 5000 # set max num of iterations to reach convergence
+  max_iterations <- max_iterations # set max num of iterations to reach convergence
   tolerance <- .01 # Set tolerance criteria for convergence
 
   # Create an empty list to store the response coherence values for each scale
@@ -133,6 +142,7 @@ compute_cohRel <- function(df, scales_list, nb_factors) {
   # Loop through each scale -- The response coherence and reliability is computed for each scale.
   for (scale_name in names(scales_t)) {
     scale_data <- scales_t[[scale_name]]
+    scale_data <- as.matrix(scale_data)
     num_factors <- nb_factors[[scale_name]]
 
     # Skip if num_factors is smaller or equal to 1 and return NA for reliability and response coherence
@@ -150,29 +160,32 @@ compute_cohRel <- function(df, scales_list, nb_factors) {
     loadings <- pca_df[["loadings"]] # Extract loading matrix
 
     # STEP 2 - Perform PCA on normalized loadings
-    normalized_loading_matrix <- t(apply(loadings, 1, normalize_row)) # Apply row normalizing function to the loading matrix
-    pca_df1 <- psych::principal(normalized_loading_matrix, num_factors, n.obs = nrow(df), rotate = "varimax") # Run PCA on the resulting normalized loading matrix
+    #normalized_loading_matrix <- t(apply(loadings, 1, normalize_row)) # Apply row normalizing function to the loading matrix
+    #pca_df1 <- psych::principal(normalized_loading_matrix, num_factors, n.obs = nrow(df), rotate = "varimax") # Run PCA on the resulting normalized loading matrix
+    pca_df1 <- psych::principal(loadings, num_factors, n.obs = nrow(df), rotate = "varimax") # Run PCA on the resulting normalized loading matrix
     scores <- pca_df1[["scores"]] #extract factor scores
 
     # STEP 3 - Repeat the normalization until convergence
-    for (iteration in 1:num_iterations) {
-      loadings <- pca_df1[["loadings"]]
+    for (iteration in 1:max_iterations) {
       scores <- pca_df1[["scores"]] # Extract factor scores
-      norms <- sqrt(rowSums(loadings^2)) # Compute the norms for each row of the factor score matrix
+      norms <- sqrt(rowSums(scores^2)) # Compute the norms for each row of the factor score matrix
 
       # Check if each item norm is equal to 1
-      if (all(abs(norms - 1) < tolerance)) {
+      if (all(abs(1 - norms) < tolerance)) {
         converged <- TRUE
         # Divide each row of the factor score matrix by its norm
         normed_scores <- t(apply(scores, 1, normalize_row))
         normed_scores
+
       } else {
         # Perform PCA on the normalized scores for the next iteration
+        # Divide each row of the factor score matrix by its norm
+        normed_scores <- t(apply(scores, 1, normalize_row))
         pca_df1 <- psych::principal(normed_scores,
                                     num_factors,
                                     normalize = TRUE,
                                     n.obs = nrow(df),
-                                    rotate = "varimax") #REPLACE BY pca_df2 IF FAILS
+                                    rotate = "varimax")
 
       }
       # Break the loop if converged
@@ -197,10 +210,13 @@ compute_cohRel <- function(df, scales_list, nb_factors) {
 
     # STEP 5 - COMPUTE RESPONSE RELIABILITY FOR THE SCALE
     reliability <- RespReliability(normed_scores, scale_data)
+    # Replace all 0 values with NA
+    reliability[reliability == 0] <- NA
+    # Assign to the list
     reliability_list[[scale_name]] <- reliability
 
     # STEP 6 - COMPUTE RESPONSE COHERENCE FOR THE SCALE
-    response_coherence <- sapply(response_strategy, function(x) sqrt(sum(x^2)))
+    response_coherence <- sapply(response_strategy, function(x) sqrt(sum((x)^2)))
     response_coherence_list[[scale_name]] <- response_coherence
   }
 
