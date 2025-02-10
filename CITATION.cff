@@ -5,7 +5,7 @@ authors:
   given-names: "Ariane J."
   orcid: "https://orcid.org/0000-0002-6030-7851"
 title: "The multidimensional Insufficient Effort Responding detection approach (mIERda)"
-version: 0.3
+version: 0.4
 doi: 
 date-released: 2025-02-04
 url: "https://github.com/AJGauthier/mIERda"
