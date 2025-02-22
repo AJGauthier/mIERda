@@ -7,11 +7,11 @@ Maintainer: Ariane J. Gauthier <arianejgauthier@outlook.com>
 Description: The mIERda (multidimensional insufficient effort responding detection approach) is an R package designed to help researchers and analysts identify careless/IER participants in their datasets. The package automatizes the data screening process, computes diverse IER indicators, and uses an algorithm to distinguish between attentive and IER participants. The goal of mIERda is to facilitate the identification of careless/IER respondents (C/IER) in datasets containing psychometric scales collected through survey. The mIERda computes the relevant IER indicators and screens the participants using an adaptation of a fair cut forest algorithm. A data-driven cutoff is computed to assist researchers and analysts in the classification of C/IER respondents.
 License: TBD
 Encoding: UTF-8
-LazyData: false
+LazyData: true
 RoxygenNote: 7.3.2
 Language: en-CA
 Depends: 
-    R (>= 4.3.0)
+    R (>= 4.3.0),
     dplyr (>= 1.1.1)
 Imports: 
   psych (>=	2.4.6),
