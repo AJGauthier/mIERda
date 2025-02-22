@@ -114,7 +114,6 @@ compute_cohRel <- function(df, scales_list, nb_factors, max_iterations = 30) {
     }
 
     # Apply Spearman-Brown correction
-    #rreliability <- ifelse(((2 * abs(reliability)) / (1 + abs(reliability))) < -1, -1, ((2 * abs(reliability)) / (1 + abs(reliability))))
     rreliability <- ifelse(((2 * (reliability)) / (1 + (abs(reliability)))) < -1, -1, ((2 * (reliability)) / (1 + (abs(reliability)))))
 
     return(rreliability)
