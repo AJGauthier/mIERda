@@ -1,7 +1,8 @@
 #' Calculates the person-total correlation in a specified dataset
 #'
-#' Takes a dataframe or matrix of item responses and returns for each participant
-#' the correlation between their responses and the mean responses observed at a sample-level
+#' Takes a dataframe or matrix of responses and returns for each participant
+#' the correlation between their responses and the mean responses observed at a sample-level.
+#' Missing values are removed before computation
 #'
 #' @param df a dataframe of matrix of data (e.g. survey responses)
 #' @author Ariane J. Gauthier \email{arianejgauthier@outlook.com}
