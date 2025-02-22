@@ -29,10 +29,10 @@ compute_ptc <- function(df) {
   ncol <- as.numeric(ncol)
 
   # Compute the total score for each person
-  x_t$total_score <- rowSums(x_t)
+  x_t$total_score <- rowSums(x_t, na.rm = T)
 
   # Compute the Pearson correlation between each item and the total score
-  correlations_pt <- sapply(x_t[, 1:ncol], function(x) cor(x, x_t$total_score))
+  correlations_pt <- sapply(x_t[ , 1:(ncol(x_t) - 1)], function(x) cor(x, x_t$total_score, use = "na.or.complete"))
 
   # Store a numeric vector
   correlations_pt <- as.numeric(correlations_pt)
@@ -42,6 +42,3 @@ compute_ptc <- function(df) {
 
   return(correlations_pt)
 }
-
-
-getwd()
