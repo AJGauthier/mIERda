@@ -28,7 +28,6 @@
 #' @importFrom stats cor
 #' @importFrom stats sd
 #' @importFrom dplyr select
-#' @importFrom careless careless_dataset
 #'
 #' @export compute_cohRel
 #'
