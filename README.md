@@ -29,19 +29,21 @@ ls <- compute_longstring(df) #Computes longest string of consecutive responses
 
 #### (B) - MAHALANOBIS DISTANCE
 ```{r}
+IF return_pvalues = FALSE
 md <- compute_md(df, return_pvalues = FALSE) #Computes md and returns vector of distance
+
+## IF return_pvalues = TRUE
 md <- compute_md(df, return_pvalues = TRUE) #Computes md and returns list of distance and p-values
-distance <- md[[md]] #returns vector of distance
-md_p <- md[[p_values]] # returns vector of p-values 
+distance <- md[[md]] #Returns vector of distance
+md_p <- md[[p_values]] #Returns vector of p-values 
 ```
 
 #### (C) - RESPONSE COHERENCE AND RELIABILITY
+The compute_cohRel function will only return an output for multidimensional scale (nfactors ≥ 2). If a scale is unidimensional (nfactors = 1) the compute_cohRel function will return NA for this scale.
 ```{r}
-### The compute_cohRel function will only return an output for multidimensional scale (nfactors ≥ 2). If a scale is unidimensional (nfactors = 1) the compute_cohRel function will return NA for this scale
 rel_coh <- compute_cohRel(df, scales_list, nb_factors) #Computes response coherence and reliability then returns list of response coherence and response reliability for each scale of the survey
-respCoh_scale_name <- rel_coh[[response_coherence]][[scale_name]] #Returns response reliability. If lenght(scale_name)=1 a vector is returned, otherwise a list of length(scale_name) is returned
+respCoh_scale_name <- rel_coh[[response_coherence]][[scale_name]] #Returns response reliability. If length(scale_name)=1 a vector is returned, otherwise a list of length(scale_name) is returned
 respRel_scale_name <- rel_coh[[rr]][[scale_name]] #Returns response reliability; if length(scale_name)=1 a vector is returned, otherwise a list of length(scale_name) is returned
-md_p <- md[[p_values]] # returns vector of p-values 
 ```
 
 #### (D) - INTRA-INDIVIDUAL VARIABILITY/INTRA-INDIVIDUAL STANDARD DEVIATION
@@ -56,7 +58,7 @@ ptc <- compute_ptc(df) #Computes person-total correlation and returns correlatio
 
 ### STEP 2 - COMPUTING THE MIERDA SCORE
 ```{r}
-score <- mIERda_score(x) # Returns a vector of mierda score for each participant
+score <- mIERda_score(x) #Returns a vector of mierda score for each participant
 ```
 
 ### STEP 3 - COMPUTING THE MIERDA CUTOFF
