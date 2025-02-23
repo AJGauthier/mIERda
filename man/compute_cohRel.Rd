@@ -21,7 +21,8 @@ the items belonging to it, and a list indicating the number of latent factors fo
 The response reliability and coherence is then obtained by running a series of PCA, computing
 the vector of response strategy and by computing the norm of the response strategy (response coherence)
 and the correlation between two parallel halves  of the response strategy. The function returns a list
-which contains 2 sub-list of length number of scales.
+which contains 2 sub-list of length number of scales. Depending on the number of latent factors in your scale, 
+it might take from a few seconds to a few minutes for the code to run.
 }
 \examples{
  scales_list <- list(scale1 = dplyr::select (df, item_1:item_18),
