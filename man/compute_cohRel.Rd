@@ -33,7 +33,7 @@ it might take from a few seconds to a few minutes for the code to run.
 df <- mierda_data #rename dataframe
 scales_list <- list(scale1 = dplyr::select (df, Item_1:Item_50))
 nb_factors <- list(scale1 = 5)
-coh_rel <- compute_cohRel(df, scales_list, nb_factors)
+rel_coh <- compute_cohRel(df, scales_list, nb_factors)
 }
 \references{
 Dupuis, M., Meier, E., Capel, R., & Gendre, F. (2015). Measuring individuals’ response quality

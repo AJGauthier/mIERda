@@ -35,7 +35,7 @@
 #' df <- mierda_data #rename dataframe
 #' scales_list <- list(scale1 = dplyr::select (df, Item_1:Item_50))
 #' nb_factors <- list(scale1 = 5)
-#' coh_rel <- compute_cohRel(df, scales_list, nb_factors)
+#' rel_coh <- compute_cohRel(df, scales_list, nb_factors)
 
 compute_cohRel <- function(df, scales_list, nb_factors, max_iterations = 30) {
 

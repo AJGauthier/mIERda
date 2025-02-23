@@ -13,6 +13,12 @@ mIERda_cutoff(score)
 \description{
 The mIERda_cutoff function takes the vector of mIERda scores and returns a numeric value representing the optimal cutoff.
 }
+\examples{
+x <- cbind(ls, md, ptc, isd, respRel, respCoh)
+score <- mIERda_score(x)
+cutoff <- mIERda_cutoff(score)
+
+}
 \author{
 Ariane J. Gauthier \email{arianejgauthier@outlook.com}
 }

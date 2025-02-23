@@ -7,10 +7,10 @@
 #'
 #' @export mIERda_cutoff
 #' @aliases mierda_cutoff
-#' @importFrom mIERda mierda_score
+#' @importFrom mIERda mIERda_score
 #' @examples
-#' @example mIERda_score.R
-#' score <- mierda_score(x)
+#' x <- cbind(ls, md, ptc, isd, respRel, respCoh)
+#' score <- mIERda_score(x)
 #' cutoff <- mIERda_cutoff(score)
 #'
 mIERda_cutoff <- function(score) {
