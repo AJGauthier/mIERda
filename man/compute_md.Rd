@@ -4,20 +4,24 @@
 \alias{compute_md}
 \title{Calculates the Mahalanobis Distance for the participants within a dataset}
 \usage{
-compute_md(df, return_pvalues = FALSE)
+compute_md(df, max_missing = 0.5, return_pvalues = FALSE)
 }
 \arguments{
-\item{df}{is a dataframe or matrix containing respondents responses (e.g. survey responses)}
+\item{df}{is a dataframe or matrix containing respondents responses (e.g. survey responses).}
+
+\item{max_missing}{is a numeric value between 0 and 1, specifying the maximal proportion of missing values allowed for each variable.}
+
+\item{return_pvalues}{a logical statement (TRUE or FALSE) indicating whether to return p-values alongside Mahalanobis distance}
 }
 \description{
-akes a dataframe or matrix of item responses, and applies Mahalanobis Distance.
+Takes a dataframe or matrix of item responses, and applies Mahalanobis Distance.
 Returns the distance and associated p-value for each respondent.
    IF return_pvalues = FALSE, returns a vector containing the distance;
    IF return_pvalues = TRUE returns a list containing the distance and p-value.
 }
 \examples{
-md <- compute_md(df, return_pvalues = FALSE)
-md <- compute_md(df, return_pvalues = TRUE)
+df <- mierda_data
+md <- compute_md(df, max_missing = .5, return_pvalues = FALSE)
 
 }
 \references{

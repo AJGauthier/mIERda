@@ -12,6 +12,7 @@
 #' @export compute_ptc
 #'
 #' @examples
+#' df <- mierda_data
 #' ptc <- compute_ptc(df)
 #'
 compute_ptc <- function(df) {

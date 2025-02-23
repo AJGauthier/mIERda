@@ -2,9 +2,10 @@
 % Please edit documentation in R/mIERda_score.R
 \name{mIERda_score}
 \alias{mIERda_score}
+\alias{mierda_score}
 \title{Computes the mIERda score}
 \usage{
-mIERda_score(df_mierda)
+mIERda_score(x)
 }
 \arguments{
 \item{x}{a dataframe of matrix containing respondents values on multiple IERIs}
@@ -14,8 +15,8 @@ The mIERda_score function takes a dataframe or matrix containing participants IS
 response reliability and response coherence and generates a fair cut forest. A vector containing mIERda scores is returned.
 }
 \examples{
-mierdaScore <- mIERda_score (x)
-
+x <- cbind(ls, md, ptc, isd, coh_rel, resp_rel)
+score <- mIERda_score(x)
 
 }
 \references{

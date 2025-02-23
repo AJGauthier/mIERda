@@ -4,6 +4,7 @@
 #' the within-person standard deviation
 #'
 #' @param df a dataframe of matrix of data (e.g. survey responses)
+#' @param na.rm a logical statement (TRUE or FALSE) indicating whether NA values should be removed before computations.
 #' @author Ariane J. Gauthier \email{arianejgauthier@outlook.com}
 #' @references
 #' Dunn, A. M., Heggestad, E. D., Shanock, L. R., & Theilgard, N. (2018).
@@ -18,6 +19,7 @@
 #' @export compute_isd
 #' @importFrom stats sd
 #' @examples
+#' df <- mierda_data
 #' isd <- compute_isd(df, na.rm = TRUE)
 #'
 compute_isd <- function(df, na.rm = TRUE) {

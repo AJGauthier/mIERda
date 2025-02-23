@@ -10,10 +10,12 @@ compute_ptc(df)
 \item{df}{a dataframe of matrix of data (e.g. survey responses)}
 }
 \description{
-Takes a dataframe or matrix of item responses and returns for each participant
-the correlation between their responses and the mean responses observed at a sample-level
+Takes a dataframe or matrix of responses and returns for each participant
+the correlation between their responses and the mean responses observed at a sample-level.
+Missing values are removed before computation
 }
 \examples{
+df <- mierda_data
 ptc <- compute_ptc(df)
 
 }

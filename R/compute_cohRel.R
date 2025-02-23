@@ -1,6 +1,6 @@
 #' Calculates the response coherence and reliability
 #'
-#' Takes a dataframe of item responses, a list specifying the scale names and
+#' @description Takes a dataframe of item responses, a list specifying the scale names and
 #' the items belonging to it, and a list indicating the number of latent factors for each scale.
 #' The response reliability and coherence is then obtained by running a series of PCA, computing
 #' the vector of response strategy and by computing the norm of the response strategy (response coherence)
@@ -32,15 +32,10 @@
 #' @export compute_cohRel
 #'
 #' @examples
-#'  scales_list <- list(scale1 = dplyr::select (df, item_1:item_18),
-#'                 scale2 = dplyr::select (df, item_19:item_29),
-#'                 scale3 = dplyr::select (df, item_30:item_60))
-#'
-#'  nb_factors <- list(scale1 = 6,
-#'                     scale2 = 2,
-#'                     scale3 = 2)
-#'
-#' response_coh_rel <- response_cohRel(df, scales_list, nb_factors)
+#' df <- mierda_data #rename dataframe
+#' scales_list <- list(scale1 = dplyr::select (df, Item_1:Item_50))
+#' nb_factors <- list(scale1 = 5)
+#' coh_rel <- compute_cohRel(df, scales_list, nb_factors)
 
 compute_cohRel <- function(df, scales_list, nb_factors, max_iterations = 30) {
 

@@ -2,20 +2,16 @@
 % Please edit documentation in R/mIERda_cutoff.R
 \name{mIERda_cutoff}
 \alias{mIERda_cutoff}
+\alias{mierda_cutoff}
 \title{Computes the data-driven cutoff based on the mIERda scores}
 \usage{
-mIERda_cutoff(mierda_score)
+mIERda_cutoff(score)
 }
 \arguments{
-\item{x}{a vector containung respondents mierda_score}
+\item{score}{a vector containing respondents mierda score returned by the mierda_score() function}
 }
 \description{
 The mIERda_cutoff function takes the vector of mIERda scores and returns a numeric value representing the optimal cutoff.
-}
-\examples{
-cutoff <- mIERda_cutoff(mierdaScore)
-
-
 }
 \author{
 Ariane J. Gauthier \email{arianejgauthier@outlook.com}

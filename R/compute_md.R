@@ -5,7 +5,8 @@
 #'    IF return_pvalues = FALSE, returns a vector containing the distance;
 #'    IF return_pvalues = TRUE returns a list containing the distance and p-value.
 #'
-#' @param df is a dataframe or matrix containing respondents responses (e.g. survey responses),
+#' @param df is a dataframe or matrix containing respondents responses (e.g. survey responses).
+#' @param return_pvalues a logical statement (TRUE or FALSE) indicating whether to return p-values alongside Mahalanobis distance
 #' @param max_missing is a numeric value between 0 and 1, specifying the maximal proportion of missing values allowed for each variable.
 #' @author Ariane J. Gauthier \email{arianejgauthier@outlook.com}
 #' @references
@@ -19,8 +20,8 @@
 #' @importFrom stats pchisq
 #'
 #' @examples
+#' df <- mierda_data
 #' md <- compute_md(df, max_missing = .5, return_pvalues = FALSE)
-#' md <- compute_md(df, max_missing = .5, return_pvalues = TRUE)
 #'
 compute_md <- function(df, max_missing = .5, return_pvalues = FALSE) {
   # Dummy proofing

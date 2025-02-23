@@ -14,6 +14,7 @@ Takes a dataframe or matrix of item responses and returns for each participant
 the lenght of the longest repetitive string of consecutive responses.
 }
 \examples{
+df <- mierda_data
 ls <- compute_longstring(df)
 
 }

@@ -4,7 +4,7 @@
 \alias{compute_cohRel}
 \title{Calculates the response coherence and reliability}
 \usage{
-compute_cohRel(df, scales_list, nb_factors)
+compute_cohRel(df, scales_list, nb_factors, max_iterations = 30)
 }
 \arguments{
 \item{df}{a dataframe of data (e.g. survey responses); a matrix won't work}
@@ -14,6 +14,11 @@ included in the df and the items for each scale.}
 
 \item{nb_factors}{a list of length number of scales indicating the name of each scale
 and the number of latent factors for each scale included in the df}
+
+\item{max_iterations}{a numerical value indicating the maximal number of iterations
+allowed to obtain strict orthogonality and perfect communality, assuming
+the model does not converge before reaching said number of iterations. This allows you to
+control the potential computational load. Recommended value = 30}
 }
 \description{
 Takes a dataframe of item responses, a list specifying the scale names and
@@ -21,18 +26,14 @@ the items belonging to it, and a list indicating the number of latent factors fo
 The response reliability and coherence is then obtained by running a series of PCA, computing
 the vector of response strategy and by computing the norm of the response strategy (response coherence)
 and the correlation between two parallel halves  of the response strategy. The function returns a list
-which contains 2 sub-list of length number of scales.
+which contains 2 sub-list of length number of scales. Depending on the number of latent factors in your scale,
+it might take from a few seconds to a few minutes for the code to run.
 }
 \examples{
- scales_list <- list(scale1 = dplyr::select (df, item_1:item_18),
-                scale2 = dplyr::select (df, item_19:item_29),
-                scale3 = dplyr::select (df, item_30:item_60))
-
- nb_factors <- list(scale1 = 6,
-                    scale2 = 2,
-                    scale3 = 2)
-
-response_coh_rel <- response_cohRel(df, scales_list, nb_factors)
+df <- mierda_data #rename dataframe
+scales_list <- list(scale1 = dplyr::select (df, Item_1:Item_50))
+nb_factors <- list(scale1 = 5)
+coh_rel <- compute_cohRel(df, scales_list, nb_factors)
 }
 \references{
 Dupuis, M., Meier, E., Capel, R., & Gendre, F. (2015). Measuring individuals’ response quality

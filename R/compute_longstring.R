@@ -13,6 +13,7 @@
 #' @export compute_longstring
 #'
 #' @examples
+#' df <- mierda_data
 #' ls <- compute_longstring(df)
 #'
 compute_longstring <- function(df) {

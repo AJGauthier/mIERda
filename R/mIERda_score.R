@@ -13,17 +13,16 @@
 #' \item Cortes, David. "Isolation forests: looking beyond tree depth." arXiv preprint arXiv:2111.11639 (2021).
 #' }
 #' @export mIERda_score
-#' @export mierda_score
+#' @aliases mierda_score
 #' @importFrom isotree isolation.forest
 #' @importFrom stats predict
-#'
 #' @examples
-#' mierdaScore <- mIERda_score (x)
+#' x <- cbind(ls, md, ptc, isd, coh_rel, resp_rel)
+#' score <- mIERda_score(x)
 #'
-#'
-mIERda_score <- function(df_mierda) {
+mIERda_score <- function(x) {
 
-  df_t <- as.data.frame(df_mierda)
+  df_t <- as.data.frame(x)
 
   # Isolation Forest Model
   model_orig <- isotree::isolation.forest(

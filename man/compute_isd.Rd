@@ -8,12 +8,15 @@ compute_isd(df, na.rm = TRUE)
 }
 \arguments{
 \item{df}{a dataframe of matrix of data (e.g. survey responses)}
+
+\item{na.rm}{a logical statement (TRUE or FALSE) indicating whether NA values should be removed before computations.}
 }
 \description{
 Takes a dataframe or matrix of item responses and returns for each participant
 the within-person standard deviation
 }
 \examples{
+df <- mierda_data
 isd <- compute_isd(df, na.rm = TRUE)
 
 }
