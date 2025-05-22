@@ -45,6 +45,8 @@ compute_cohRel <- function(df, scales_list, nb_factors, max_iterations = 30) {
     stop("Input data must be a data frame")
   }
 
+  ###### Functions #####
+
   ## Specify function to normalize row
   normalize_row <- function(row) {
     norm <- sqrt(sum(row^2))  # Euclidean norm
@@ -59,7 +61,6 @@ compute_cohRel <- function(df, scales_list, nb_factors, max_iterations = 30) {
     normed <- row/sqrt(sum(row^2))  # Euclidean norm
   }
 
-  # Functions
   ## Set response reliability function
   RespReliability <- function(normed_scores, scale_data) {
     # Compute inner product matrix using matrix of items characteristics
@@ -74,7 +75,7 @@ compute_cohRel <- function(df, scales_list, nb_factors, max_iterations = 30) {
 
     # Loop to find pairs with maximum inner product
     for (i in 1:(dim(Mani_inner_prod)[2] / 2)) {
-      pairs[i,] <- which(Mani_inner_prod == max(Mani_inner_prod, na.rm = TRUE), arr.ind = TRUE)[1,]
+      pairs[i,] <- which(Mani_inner_prod == max(Mani_inner_prod, na.rm=TRUE), arr.ind = TRUE)[1,]
       Mani_inner_prod[, pairs[i,]] <- NA
       Mani_inner_prod[pairs[i,], ] <- NA
     }
@@ -94,17 +95,28 @@ compute_cohRel <- function(df, scales_list, nb_factors, max_iterations = 30) {
       part_1 <- scale_data[i, part_1_indices, drop = FALSE]
       part_2 <- scale_data[i, part_2_indices, drop = FALSE]
 
-      # Compute correlations for part_1 and part_2
-      half_1 <- normalize_row2(stats::cor(normed_scores[pairs[, 1], ], t(part_1),
-                                          #use = "complete.obs"
-                                          #use = "pairwise"
-      ))
-      half_2 <- normalize_row2(stats::cor(normed_scores[pairs[, 2], ], t(part_2),
-                                          #use = "complete.obs"
-                                          #use = "pairwise"
-      ))
+      # Check for all NA
+      if (all(is.na(part_1)) || all(is.na(part_2))) {
+        reliability[i] <- NA
+        next  # Skip to next row
+      }
 
-      reliability[i] <- sum(half_1 * half_2, na.rm = TRUE)
+      # Compute correlations for part_1 and part_2
+      half_1 <- tryCatch({
+        normalize_row2(stats::cor(normed_scores[pairs[, 1], ], t(part_1),
+                                  use = "pairwise.complete.obs"))
+      }, warning = function(w) NA)
+
+      half_2 <- tryCatch({ normalize_row2(stats::cor(normed_scores[pairs[, 2], ], t(part_2),
+                                                     use = "pairwise.complete.obs"))
+      }, warning = function(w) NA)
+
+      # Get raw reliability and exclude missing
+      #valid_idx1 <- !is.na(half_1)
+      #valid_idx2 <- !is.na(half_2)
+      #reliability[i] <- sum(half_1[valid_idx1] * half_2[valid_idx2])
+
+      reliability[i] <- sum(half_1 * half_2, na.rm = T)
     }
 
     # Apply Spearman-Brown correction
@@ -113,7 +125,7 @@ compute_cohRel <- function(df, scales_list, nb_factors, max_iterations = 30) {
     return(rreliability)
   }
 
-  ##### ANALYSIS ####
+  ##### ANALYSIS #####
   # SET PARAMETERS
   converged <- FALSE # Set convergence criteria
   scale_factors_list <- list() # Create an empty list to store the scales and number of factors
@@ -191,20 +203,20 @@ compute_cohRel <- function(df, scales_list, nb_factors, max_iterations = 30) {
     # Transform KX into KZ -- normed_scores == matrix items characteristics
     z_scores <- scale(normed_scores)
     # Calculate the mean and standard deviation for each item
-    item_means <- colMeans(scale_data, na.rm = TRUE) # get mean
-    item_sd <- apply(scale_data, 2, stats::sd, na.rm = TRUE) # get sd
+    item_means <- colMeans(scale_data, na.rm = T) # get mean
+    item_sd <- apply(scale_data, 2, stats::sd, na.rm = T) # get sd
     # Metricize the response matrix
     metricized_response <- t(t(scale_data - item_means) / item_sd)
     # Calculate the response strategy
     response_strategy <- lapply(1:nrow(metricized_response), function(i) {
       vector <- as.vector(metricized_response[i, ])
-      sapply(1:ncol(z_scores), function(j) cor(vector, z_scores[, j]))
+      sapply(1:ncol(z_scores), function(j) cor(vector, z_scores[, j], use = "pairwise.complete.obs"))
     })
 
     # STEP 5 - COMPUTE RESPONSE RELIABILITY FOR THE SCALE
     reliability <- RespReliability(normed_scores, scale_data)
     # Replace all 0 values with NA
-    reliability[reliability == 0] <- NA
+    #reliability[reliability == 0] <- NA
     # Assign to the list
     reliability_list[[scale_name]] <- reliability
 

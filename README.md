@@ -39,7 +39,7 @@ md_p <- md[[p_values]] #Returns vector of p-values
 ```
 
 #### (C) - RESPONSE COHERENCE AND RELIABILITY
-The compute_cohRel function will only return an output for multidimensional scale (nfactors ≥ 2). If a scale is unidimensional (nfactors = 1) the compute_cohRel function will return NA for this scale.
+The compute_cohRel function will only return an output for multidimensional scale (nb_factors ≥ 2). If a scale is unidimensional (nb_factors = 1) the compute_cohRel function will return NA for this scale.
 ```{r}
 rel_coh <- compute_cohRel(df, scales_list, nb_factors) #Computes response coherence and reliability then returns list of response coherence and response reliability for each scale of the survey
 respCoh_scale_name <- rel_coh[[response_coherence]][[scale_name]] #Returns response reliability. If length(scale_name)=1 a vector is returned, otherwise a list of length(scale_name) is returned
@@ -48,7 +48,7 @@ respRel_scale_name <- rel_coh[[rr]][[scale_name]] #Returns response reliability;
 
 #### (D) - INTRA-INDIVIDUAL VARIABILITY/INTRA-INDIVIDUAL STANDARD DEVIATION
 ```{r}
-isd <- compute_isd(df, na.rm = TRUE) #Computes IRV/ISD and returns vector for each respondent
+isd <- compute_isd(df, na.rm = TRUE) #Computes intra-individual standard deviation and returns vector for each respondent
 ```
 
 #### (E) - PERSON-TOTAL CORRELATION

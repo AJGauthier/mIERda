@@ -15,6 +15,7 @@
 #' df <- mierda_data
 #' ptc <- compute_ptc(df)
 #'
+#'
 compute_ptc <- function(df) {
   # Stop if not df or matrix
   if (!is.data.frame(df) && !is.matrix(df)) {
@@ -31,10 +32,19 @@ compute_ptc <- function(df) {
   ncol <- as.numeric(ncol)
 
   # Compute the total score for each person
-  x_t$total_score <- rowSums(x_t, na.rm = T)
+  x_t$total_score <- rowMeans(x_t, na.rm = T)
 
   # Compute the Pearson correlation between each item and the total score
-  correlations_pt <- sapply(x_t[ , 1:(ncol(x_t) - 1)], function(x) cor(x, x_t$total_score, use = "na.or.complete"))
+  correlations_pt <- sapply(
+    x_t[ , 1:(ncol(x_t) - 1)],
+    function(x) {
+      tryCatch({
+        cor(x, x_t$total_score, use = "pairwise.complete.obs")
+      }, warning = function(w) {
+        NA  # Return NA on warning
+      })
+    }
+  )
 
   # Store a numeric vector
   correlations_pt <- as.numeric(correlations_pt)

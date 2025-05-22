@@ -20,11 +20,13 @@ compute_longstring <- function(df) {
   if (!is.data.frame(df) && !is.matrix(df)) {
     stop("Input data must be a data frame or matrix")
   }
+  all.na <- apply(df, 1, function(x) {all(is.na(x))})
   df <- as.matrix(df) # dummy proofing coerce to matrix
   # Apply row-wise calculation of the longstring indicator
   longstrings <- apply(df, 1, function(row_data) {
     max(rle(row_data)$lengths)
   })
+  longstrings[all.na] <- NA # Ensures rows with all NA get an output of NA.
   return(longstrings)
 }
 
