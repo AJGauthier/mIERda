@@ -24,9 +24,18 @@ mIERda_score <- function(x) {
 
   df_t <- as.data.frame(x)
 
+  # Flag all-NA rows
+  all.na <- apply(df_t, 1, function(y) all(is.na(y)))
+  if (any(all.na)) {
+    warning("Some rows only contain missing values. These rows were excluded from the computation")
+  }
+
+  # Generate cleaned dataset (exclude all-NA rows)
+  df_t_clean <- df_t[!all.na, ]
+
   # Isolation Forest Model
   model_orig <- isotree::isolation.forest(
-    df_t,
+    df_t_clean,
     ndim = 2,
     sample_size = 32,
     ntrees = 100,
@@ -40,12 +49,16 @@ mIERda_score <- function(x) {
     nthreads = 1
   )
 
-  mierda_score <- stats::predict(model_orig,
-                       df_t,
-                       type="score")
+  # Get score
+  pred_clean <- predict(model_orig, df_t_clean, type = "score")
 
-  score_ier <- as.numeric(mierda_score)
-  return(score_ier)
+  # Add NA to output - keep original length
+  score <- rep(NA_real_, nrow(df_t))  # Create full-length score vector
+  score[!all.na] <- pred_clean        # Fill in predictions where applicable
+
+  score_mierda <- as.numeric(score) # Ensures returns numeric vector
+
+  return(score_mierda)
 }
 
 mierda_score <- mIERda_score #Alias

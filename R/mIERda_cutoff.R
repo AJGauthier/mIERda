@@ -14,6 +14,7 @@
 #' cutoff <- mIERda_cutoff(score)
 #'
 mIERda_cutoff <- function(score) {
+  score <- score[!is.na(score)] # Removes NA
   thresholds <- seq(min(score), max(score), length.out = 100)
   sse_values <- sapply(thresholds, function(thresh) {
     group1 <- score[score <= thresh]
