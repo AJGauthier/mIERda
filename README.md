@@ -32,10 +32,10 @@ ls <- compute_longstring(df) #Computes longest string of consecutive responses
 IF return_pvalues = FALSE
 md <- compute_md(df, return_pvalues = FALSE) #Computes md and returns vector of distance
 
-## IF return_pvalues = TRUE
+IF return_pvalues = TRUE
 md <- compute_md(df, return_pvalues = TRUE) #Computes md and returns list of distance and p-values
-distance <- md[[md]] #Returns vector of distance
-md_p <- md[[p_values]] #Returns vector of p-values 
+distance <- md[["md"]] #Returns vector of distance
+md_p <- md[["p_values"]] #Returns vector of p-values 
 ```
 
 #### (C) - RESPONSE COHERENCE AND RELIABILITY
@@ -61,7 +61,7 @@ ptc <- compute_ptc(df) #Computes person-total correlation and returns correlatio
 score <- mIERda_score(x) #Returns a vector of mierda score for each participant
 ```
 
-### STEP 3 - COMPUTING THE MIERDA CUTOFF
+### STEP 3 - COMPUTING THE MIERDA CUTOFF 
 ```{r}
 cutoff <- mIERda_cutoff(score) #Finds the cutoff which minimizes the sum of squares based on the distribution of mIERda scores. Returns a vector of length=1. Respondents with values smaller than or equal to the cutoff are deemed attentive whilst responded with values greater than the cutoff should be considered C/IER
 ```
