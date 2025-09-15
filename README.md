@@ -35,7 +35,7 @@ Some IERIs—such as the Longstring index—must be computed using the raw respo
 
 To ensure accuracy:
 
-  - Compute the LongString index using the original/raw responses.
+  - Compute the Longstring index using the original/raw responses.
 
   - Then reverse-score negatively worded items.
 
