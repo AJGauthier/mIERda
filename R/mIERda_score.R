@@ -46,7 +46,8 @@ mIERda_score <- function(x) {
     coefs = "normal",
     prob_pick_pooled_gain = 1,
     weigh_by_kurtosis = F,
-    nthreads = 1
+    nthreads = 1,
+    seed = 1234
   )
 
   # Get score
